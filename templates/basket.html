@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Your Basket</h1>
+
+  {% if items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th><th>Qty</th><th>Subtotal</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for entry in items %}
+        <tr>
+                    <td>
+            <a href="{{ url_for('about', item_id=entry.item.id) }}">
+              {{ entry.item.name }}
+            </a>
+          </td>
+          <td>{{ entry.qty }}</td>
+          <td>£{{ '%.2f'|format(entry.sub) }}</td>
+          <td>
+            <a href="{{ url_for('remove', item_id=entry.item.id) }}">Remove</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="2">Total</th>
+          <th>£{{ '%.2f'|format(total) }}</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+    <p><a href="{{ url_for('checkout') }}">Proceed to checkout</a></p>
+  {% else %}
+    <p>Your basket is empty.</p>
+  {% endif %}
+
+{% endblock %}

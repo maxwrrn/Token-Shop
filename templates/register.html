@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Register – EcoShop{% endblock %}
+{% block content %}
+  <h1>Register</h1>
+  <form method="post" action="{{ url_for('register') }}">
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    <button type="submit">Register</button>
+  </form>
+  <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+{% endblock %}

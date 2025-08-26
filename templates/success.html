@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+  <div class="thank-you-container">
+    <h1>Thank You for Shopping!</h1>
+    <p>We appreciate your business and hope to see you again soon.</p>
+    <a href="{{ url_for('index') }}" class="btn">Continue Shopping</a>
+  </div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.thank-you-container {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+.thank-you-container h1 {
+  font-family: 'Poppins', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.thank-you-container p {
+  font-family: 'Poppins', serif;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #555;
+}
+.thank-you-container .btn {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: #2d746e;
+  color: #fff;
+  font-size: 1rem;
+}
+</style>
+{% endblock %}

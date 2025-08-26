@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Invoice – EcoShop{% endblock %}
+{% block content %}
+  <h1>Invoice</h1>
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>Item</th><th>Qty</th><th>Unit Price</th><th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in items %}
+        <tr>
+          <td>{{ entry.item.name }}</td>
+          <td>{{ entry.qty }}</td>
+          <td>£{{ "%.2f"|format(entry.item.price) }}</td>
+          <td>£{{ "%.2f"|format(entry.sub) }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="total">Total: £{{ "%.2f"|format(total) }}</p>
+  <a class="btn" href="{{ url_for('basket') }}">Back to Basket</a>
+{% endblock %}

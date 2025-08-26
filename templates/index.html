@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Home – EcoToken Shop{% endblock %}
+
+{% block content %}
+  <section class="token-section container">
+    <h1>Discover Our Tokens</h1>
+
+    <div class="sort-controls">
+      Sort by:
+      <a href="{{ url_for('index', sort='name') }}">Name</a> |
+      <a href="{{ url_for('index', sort='price') }}">Price</a> |
+      <a href="{{ url_for('index', sort='impact') }}">Energy Impact</a>
+    </div>
+
+    <div class="product-grid">
+      {% for token in items %}
+        <div class="product-card" data-item-id="{{ token.id }}">
+          <a href="{{ url_for('about', item_id=token.id) }}">
+            <img src="{{ url_for('static', filename='images/' ~ token.image_filename) }}"
+                 alt="{{ token.name }} logo">
+            <h3>{{ token.name }}</h3>
+          </a>
+          <p class="price">£{{ '%.2f'|format(token.price) }}</p>
+          <p class="impact">Energy: {{ token.impact }} kWh/tx</p>
+          <a class="btn" href="{{ url_for('add', item_id=token.id) }}">
+            <i class="fas fa-cart-plus"></i> Add to Basket
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+</script>
+{% endblock %}

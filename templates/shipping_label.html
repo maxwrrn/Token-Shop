@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Shipping Label – EcoShop{% endblock %}
+{% block content %}
+  <h1>Shipping Label</h1>
+  <div class="shipping-label">
+    <div class="from">
+      <h2>From:</h2>
+      <p>EcoShop Warehouse</p>
+      <p>123 Green Lane</p>
+      <p>Cardiff, CF10 1AA</p>
+      <p>United Kingdom</p>
+    </div>
+    <div class="to">
+      <h2>To:</h2>
+      <p>[Customer Name]</p>
+      <p>[Street Address]</p>
+      <p>[City, Postcode]</p>
+      <p>[Country]</p>
+    </div>
+    <div class="barcode">
+      <img src="{{ url_for('static', filename='images/barcode_placeholder.png') }}"
+           alt="Barcode">
+    </div>
+  </div>
+{% endblock %}

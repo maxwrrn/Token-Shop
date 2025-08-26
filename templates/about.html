@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}About {{ token.name }} – EcoToken Shop{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">About {{ token.name }}</h1>
+
+  <div class="d-flex align-items-start mb-5" style="gap: 2rem;">
+    <!-- Only the real logo image; if it 404s it will just be blank -->
+    <img
+      src="{{ url_for('static', filename='images/' ~ token.image_filename) }}"
+      alt="{{ token.name }} logo"
+      class="token-logo"
+      onerror="this.style.display='none';"
+    >
+
+    <!-- Description/text next to the image -->
+    <div class="token-details">
+      <p><strong>Description:</strong><br>{{ token.description }}</p>
+      <p><strong>Current Price:</strong> £{{ '%.2f'|format(token.price) }}</p>
+      <p><strong>Energy Impact:</strong> {{ token.impact }} kWh/tx</p>
+    </div>
+  </div>
+
+  <!-- Chart below -->
+  <div class="mb-4">
+    <h2>Price History (Last 30 Days)</h2>
+    <canvas id="priceChart" width="800" height="300"></canvas>
+  </div>
+
+  <a href="{{ url_for('add', item_id=token.id) }}" class="btn btn-primary">
+    <i class="fas fa-cart-plus"></i> Add to Basket
+  </a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch("{{ url_for('price_data', item_id=token.id) }}")
+      .then(r => r.json())
+      .then(data => {
+        const ctx = document.getElementById('priceChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.dates,
+            datasets: [{
+              label: '{{ token.name }} Price (£)',
+              data: data.prices,
+              fill: false,
+              tension: 0.3
+            }]
+          },
+          options: {
+            scales: {
+              x: { title: { display: true, text: 'Date' } },
+              y: { title: { display: true, text: 'Price (£)' } }
+            }
+          }
+        });
+      })
+      .catch(e => console.error("Chart load error:", e));
+  });
+</script>
+{% endblock %}
